@@ -10,6 +10,9 @@ namespace Games.Runaway
         public GameStage(Main game) : base(game)
         {
             Debug.Log("GameStage created");
+            Player player = Add(new Player(), 0);
+            player.Position = new Vector2f(40f, 40f);
+
         }
         // called when this stage is entered
         protected override void OnEnter()
