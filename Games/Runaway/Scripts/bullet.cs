@@ -38,7 +38,7 @@ namespace Games.Runaway
             if(Y < -mySize.Y * 0.5f)
             {
                 Debug.Log("bullet removed: " + Position);
-                Stage.Remove(this); // tell our containing scene to get rid of us when we are fully out of bounds
+                ((GameStage)Stage).RemoveBullet(this); // tell our containing scene to get rid of us when we are fully out of bounds
             }
         }
     }

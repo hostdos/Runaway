@@ -6,25 +6,40 @@ namespace Games.Runaway
 {
     public class GameStage : Stage
     {
+        List<Bullet> _bullets = new List<Bullet>();
+        Player _player;
+
         // called when this stage is created
         public GameStage(Main game) : base(game)
         {
             Debug.Log("GameStage created");
-            Player player = Add(new Player(), 0);
-            player.Position = new Vector2f(40f, 40f);
+            _player = Add(new Player(), 0);
+
+            _player.Position = new Vector2f(40f, 40f);
 
         }
         // called when this stage is entered
         protected override void OnEnter()
         {
-            Debug.Log("GameStage entered");
-            Graphics.SetClearColor(Game.Swatches.ClearColor);
+            //Graphics.SetClearColor(Game.Swatches.ClearColor); // set the background color
             StartCoroutine(SpawnBullets);
         }
         // called each tick
         protected override void OnUpdate()
         {
             base.OnUpdate();
+
+            // check collision between player and bullets
+            foreach(Bullet bullet in _bullets)
+            {
+                // check distance from each bullet to the player
+                float distSqr = (bullet.Position - _player.Position).LengthSquared;
+                if(distSqr < 150.0f)
+                {
+                    // player's dead, restart game
+                    //Game.SetStage(new GameStage(Game));
+                }
+            }
         }
         // called when this stage is rendered
         protected override void OnRender()
@@ -41,10 +56,22 @@ namespace Games.Runaway
                 // spawn bullet
                 float PADDING = 10.0f;
                 Vector2f bulletPos = new Vector2f(Mathf.Random(PADDING, Graphics.Width - PADDING), Graphics.Height + PADDING);
-                Bullet bullet = Add(new Bullet(), 1);
-                bullet.Position = bulletPos;
+                AddBullet(bulletPos, false);
             }
         }
-
+        void AddBullet(Vector2f pos, bool movingDownward)
+        {
+            Bullet bullet = Add(new Bullet(movingDownward));
+            bullet.Position = pos;
+            // save the bullet to our list so we can keep track of it
+            _bullets.Add(bullet);
+        }
+        public void RemoveBullet(Bullet bullet)
+        {
+            // remove the bullet from our list (we no longer want to keep track of it)
+            _bullets.Remove(bullet);
+            // remove the bullet from the stage (this destroys it)
+            Remove(bullet);
+        }
     }
 }

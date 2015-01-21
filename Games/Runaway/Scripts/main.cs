@@ -23,7 +23,7 @@ namespace Games.Runaway
 
         protected override void OnReset()
         {
-            SetStage(new GameStage(this));
+            SetStage(new TitleStage(this));
         }
 
         protected override void OnLoadPalette(PaletteBuilder builder)
