@@ -22,6 +22,7 @@ namespace Games.Runaway
         }
         protected override void OnLoadGraphics(Graphics graphics)
         {
+        //fuck you
             Image image = graphics.GetImage("Resources", "bullet");
             _sprite = Add(new Sprite(image, Game.Swatches.Bullet), new Vector2i(-image.Width / 2, -image.Height / 2));
         }
