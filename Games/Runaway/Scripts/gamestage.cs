@@ -57,11 +57,13 @@ namespace Games.Runaway
                 float PADDING = 10.0f;
                 Vector2f bulletPos = new Vector2f(Mathf.Random(PADDING, Graphics.Width - PADDING), Graphics.Height + PADDING);
                 AddBullet(bulletPos, false);
+                float delay = Mathf.Max(0.5f - _elapsedTime * 0.01f, 0.05f);
+
             }
         }
         void AddBullet(Vector2f pos, bool movingDownward)
         {
-            Bullet bullet = Add(new Bullet(movingDownward));
+            Bullet bullet = Add(new Bullet(movingDownward, _elapsedTime), 1);
             bullet.Position = pos;
             // save the bullet to our list so we can keep track of it
             _bullets.Add(bullet);

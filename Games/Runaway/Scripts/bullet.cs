@@ -11,7 +11,9 @@ namespace Games.Runaway
         // constructor
         public Bullet()
         {
-            _moveSpeed = Mathf.Random(30.0f, 40.0f);
+            float maxSpeed = Mathf.Min(40.0f + (elapsedTime * 1.5f), 400.0f);
+            _moveSpeed = Mathf.Random(40.0f, maxSpeed);
+
         }
         // called when this entity is added to a stage
         protected override void OnEnterStage(Stage stage)
