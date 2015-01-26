@@ -25,7 +25,7 @@ namespace Games.Runaway
         // called when this stage is entered
         protected override void OnEnter()
         {
-            //Graphics.SetClearColor(Game.Swatches.ClearColor); // set the background color
+            Graphics.SetClearColor(Game.Swatches.ClearColor); // set the background color
             StartCoroutine(SpawnBullets);
         }
         // called each tick
@@ -41,7 +41,7 @@ namespace Games.Runaway
                 if(distSqr < 150.0f)
                 {
                     // player's dead, restart game
-                    //Game.SetStage(new GameStage(Game));
+                    Game.SetStage(new TitleStage(Game));
                 }
             }
         }
