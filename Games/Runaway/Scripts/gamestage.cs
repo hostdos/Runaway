@@ -6,9 +6,13 @@ namespace Games.Runaway
 {
     public class GameStage : Stage
     {
+
+        public new Main Game { get {return (Main) base.Game; } }
+
         List<Bullet> _bullets = new List<Bullet>();
         Player _player;
 
+        float _elapsedTime;
         // called when this stage is created
         public GameStage(Main game) : base(game)
         {
@@ -57,7 +61,7 @@ namespace Games.Runaway
                 float PADDING = 10.0f;
                 Vector2f bulletPos = new Vector2f(Mathf.Random(PADDING, Graphics.Width - PADDING), Graphics.Height + PADDING);
                 AddBullet(bulletPos, false);
-                float delay = Mathf.Max(0.5f - _elapsedTime * 0.01f, 0.05f);
+                float delay = Mathf.Ceiling(0.5f - _elapsedTime * 0.01f);
 
             }
         }

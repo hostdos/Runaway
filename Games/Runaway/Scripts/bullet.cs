@@ -8,10 +8,13 @@ namespace Games.Runaway
         public new Main Game { get { return (Main) base.Game; } }
         protected Sprite _sprite;
         float _moveSpeed;
+        bool _isMovingDownward;
+
+
         // constructor
-        public Bullet()
+        public Bullet(bool movingDownward, float elapsedTime)
         {
-            float maxSpeed = Mathf.Min(40.0f + (elapsedTime * 1.5f), 400.0f);
+            float maxSpeed = Mathf.Floor(40.0f + (elapsedTime * 1.5f));
             _moveSpeed = Mathf.Random(40.0f, maxSpeed);
 
         }
