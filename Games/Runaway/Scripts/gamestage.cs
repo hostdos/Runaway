@@ -26,6 +26,7 @@ namespace Games.Runaway
         protected override void OnEnter()
         {
             Graphics.SetClearColor(Game.Swatches.ClearColor); // set the background color
+            _playerDieSound = Audio.GetSound("Resources", "sounds", "player_die");
             StartCoroutine(SpawnBullets);
         }
         // called each tick
@@ -40,6 +41,8 @@ namespace Games.Runaway
                 float distSqr = (bullet.Position - _player.Position).LengthSquared;
                 if(distSqr < 150.0f)
                 {
+                    // play death sound
+                    Audio.Play(_playerDieSound, 0.0f, 1.0f, 1.0f);
                     // player's dead, restart game
                     Game.SetStage(new TitleStage(Game));
                 }
