@@ -9,6 +9,7 @@ namespace Games.Runaway
         protected Sprite _sprite;
         Animation _walkAnim;
         Sound _walkSound;
+        int _currentAnimFrame;
 
         float _moveSpeed;
         Axis2 _moveAxis;

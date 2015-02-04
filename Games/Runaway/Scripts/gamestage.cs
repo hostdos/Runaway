@@ -11,6 +11,7 @@ namespace Games.Runaway
 
         List<Bullet> _bullets = new List<Bullet>();
         Player _player;
+        Sound _playerDieSound;
 
         float _elapsedTime;
         // called when this stage is created
@@ -44,7 +45,7 @@ namespace Games.Runaway
                 if(distSqr < 140.0f)
                 {
                     // play death sound
-                    Audio.Play(_playerDieSound, 0.0f, 1.0f, 1.0f);
+                    Audio.Play(_playerDieSound, 0.0f, 0.5f, 1.0f);
                     // player's dead, restart game
                     Game.SetStage(new TitleStage(Game));
                 }
@@ -61,13 +62,12 @@ namespace Games.Runaway
             while(true)
             {
                 // wait
-                float delay = Mathf.Max(0.5f - _elapsedTime * 0.01f, 0.05f);
+                float delay = Mathf.Ceiling(0.5f - _elapsedTime * 0.01f);
                 yield return Delay(delay);
                 // spawn bullet
                 float PADDING = 10.0f;
                 Vector2f bulletPos = new Vector2f(Mathf.Random(PADDING, Graphics.Width - PADDING), Graphics.Height + PADDING);
                 AddBullet(bulletPos, false);
-                float delay = Mathf.Ceiling(0.5f - _elapsedTime * 0.01f);
 
             }
         }
