@@ -33,12 +33,14 @@ namespace Games.Runaway
         {
             base.OnUpdate();
 
+            _elapsedTime += (float)Timestep;
+
             // check collision between player and bullets
             foreach(Bullet bullet in _bullets)
             {
                 // check distance from each bullet to the player
                 float distSqr = (bullet.Position - _player.Position).LengthSquared;
-                if(distSqr < 150.0f)
+                if(distSqr < 140.0f)
                 {
                     // player's dead, restart game
                     Game.SetStage(new TitleStage(Game));
@@ -56,7 +58,8 @@ namespace Games.Runaway
             while(true)
             {
                 // wait
-                yield return Delay(0.5f);
+                float delay = Mathf.Max(0.5f - _elapsedTime * 0.01f, 0.05f);
+                yield return Delay(delay);
                 // spawn bullet
                 float PADDING = 10.0f;
                 Vector2f bulletPos = new Vector2f(Mathf.Random(PADDING, Graphics.Width - PADDING), Graphics.Height + PADDING);

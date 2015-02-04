@@ -15,6 +15,8 @@ namespace Games.Runaway
         public Bullet(bool movingDownward, float elapsedTime)
         {
             float maxSpeed = Mathf.Floor(40.0f + (elapsedTime * 1.5f));
+            Debug.Log("maxSpeed: " + elapsedTime);
+
             _moveSpeed = Mathf.Random(40.0f, maxSpeed);
 
         }
