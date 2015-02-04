@@ -8,6 +8,7 @@ namespace Games.Runaway
         public new Main Game { get { return (Main) base.Game; } }
         protected Sprite _sprite;
         Animation _walkAnim;
+        Sound _walkSound;
 
         float _moveSpeed;
         Axis2 _moveAxis;
@@ -34,6 +35,10 @@ namespace Games.Runaway
             // set it's offset such that it's centered
             _sprite = Add(new Sprite(_walkAnim, Game.Swatches.Player), new Vector2i(-image.Width / 2, -image.Height / 2));
         }
+        protected override void OnLoadAudio(Audio audio)
+        {
+            _walkSound = audio.GetSound("Resources", "sounds", "player_walk");
+        }
         protected override void OnUpdate(double dt)
         {
             base.OnUpdate(dt);
@@ -47,7 +52,13 @@ namespace Games.Runaway
                 Y += _moveSpeed * (float)dt;
             else if(_moveAxis.Y.IsNegative)
                 Y -= _moveSpeed * (float)dt;
-
+            // play a sound when our animation frame changes while walking
+            if(!_moveAxis.IsZero)
+            {
+                if(_walkAnim.Frame == 0 && _currentAnimFrame == 1)
+                    Stage.Audio.Play(_walkSound, 0.0f, 1.0f, 1.0f);
+                _currentAnimFrame = _walkAnim.Frame;
+            }
             //sprite animation handling
             if(_moveAxis.JustBecameZero)
             {
